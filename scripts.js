@@ -1,6 +1,7 @@
 const upperCaseButton = document.querySelector('[data-js="upperCaseButton"]')
 const lowerCaseButton = document.querySelector('[data-js="lowerCaseButton"]')
 const firstLetterInUppercase = document.querySelector('[data-js="firstLetterUppercase"]')
+const eachWordUppercase = document.querySelector('[data-js="eachWordUppercase"]')
 const textArea = document.querySelector('#textArea')
 const outputText = document.querySelector('[data-js="outputText"]')
 
@@ -26,4 +27,20 @@ firstLetterInUppercase.addEventListener('click', () => {
     .slice(0, 1)
     .toUpperCase()
     .concat(inputValue.slice(1))
+})
+
+eachWordUppercase.addEventListener('click', () => {
+  const inputValue = getText(textArea.value)
+  const message = inputValue.split(' ')
+
+  message.reduce((acc, word) => {
+    acc += word
+      .slice(0, 1)
+      .toUpperCase()
+      .concat(word.slice(1))
+
+    outputText.textContent = acc
+
+    return `${acc} `
+  }, '')
 })
