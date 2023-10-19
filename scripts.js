@@ -7,40 +7,38 @@ const textArea = document.querySelector('[data-js="textArea"]')
 const outputText = document.querySelector('[data-js="outputText"]')
 const outputTextAlternate = document.querySelector('[data-js="output-text"]')
 
-const getText = text => text
-
-textArea.addEventListener('input', e => {
-  const inputValue = getText(e.target.value).trim()
+const getTextAreaContent = e => {
+  const inputValue = e.target.value.trim()
   return inputValue
-})
+}
 
 upperCaseButton.addEventListener('click', () => {
   outputTextAlternate.textContent = ''
-  outputText.textContent = getText(textArea.value).toUpperCase()
+  outputText.textContent = textArea.value.toUpperCase()
 })
 
 lowerCaseButton.addEventListener('click', () => {
   outputTextAlternate.textContent = ''
-  outputText.textContent = getText(textArea.value).toLowerCase()
+  outputText.textContent = textArea.value.toLowerCase()
 })
 
-firstLetterInUppercase.addEventListener('click', () => {
-  const inputValue = getText(textArea.value)
+const handleFirstLetterInUppercase = () => {
+  const inputValue = textArea.value
 
   outputTextAlternate.textContent = ''
   outputText.textContent = inputValue
     .slice(0, 1)
     .toUpperCase()
     .concat(inputValue.slice(1))
-})
+}
 
-eachWordUppercase.addEventListener('click', () => {
-  const inputValue = getText(textArea.value)
+const handleEachWordUppercase = () => {
+  const inputValue = textArea.value
   const message = inputValue.split(' ')
 
   outputTextAlternate.textContent = ''
 
-  message.reduce((acc, word) => {
+  const handleText = (acc, word) => {
     acc += word
       .slice(0, 1)
       .toUpperCase()
@@ -49,11 +47,17 @@ eachWordUppercase.addEventListener('click', () => {
     outputText.textContent = acc
 
     return `${acc} `
-  }, '')
-})
+  }
+
+  message.reduce(handleText, '')
+}
+
+textArea.addEventListener('input', getTextAreaContent)
+firstLetterInUppercase.addEventListener('click', handleFirstLetterInUppercase)
+eachWordUppercase.addEventListener('click', handleEachWordUppercase)
 
 alternateUppercaseLowercase.addEventListener('click', () => {
-  const inputValue = getText(textArea.value)
+  const inputValue = textArea.value
 
   outputTextAlternate.textContent = inputValue
   outputText.textContent = ''
